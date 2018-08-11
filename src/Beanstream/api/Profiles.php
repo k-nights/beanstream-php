@@ -144,7 +144,7 @@ class Profiles {
      * 
      * @param string $profile_id Profile Id
      * @param array $data Card data
-     * @return bool TRUE see note below
+     * @return array Add Card data
      */
     public function addCard($profile_id, $data)
     {
@@ -155,11 +155,7 @@ class Profiles {
 		//process as is
 		$result = $this->_connector->processTransaction('POST', $endpoint, $data);
 		
-        /*
-         * XXX it would be more appropriate to return newly added card_id,
-         * but API does not return it in result
-         */
-        return TRUE;
+        return $result;
     }
 	
     /**
