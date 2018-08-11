@@ -58,7 +58,7 @@ require 'vendor/autoload.php';
 $merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
 $api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
-$platform = 'www'; //default
+$platform = 'api'; //default
 
 //Create Beanstream Gateway
 $beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
@@ -116,3 +116,13 @@ for payment and search passcodes, *configuration -> payment profile configuratio
 Beanstream requires the *province* field submitted along with *billing* data to be a two-letter code. It only requires it when
 the specified *country* is *US* or *CA*, for other country codes set it to *--* (two dashes) even if the corresponding country 
 does have states or provinces.
+
+
+### Backwards Compatibility
+The default `$platform` value assigned is `'api'`, which sends your requests to the endpoint `'api.na.bambora.com'`. The ensure backwards compatibility, you may assign `$platform = 'www'` which will send your requests to the legacy endpoint `'www.beanstream.com/api'`.
+
+
+### Ensuring TLS 1.2-Only Compatibility
+If you would like to test compatibility with the LIVE TLS 1.2-only environment, assign `$platform = 'tls12-api'`, instead of `'api'`; This will point your requests to the endpoint `'tls12-api.na.bambora.com'`. Please be advised that this endpoint is provided for a limited time, and is intended for integration compatibility testing only, and is not intended for any type of load tests. More details can be found on the [Bambora North America Knowledge Base](https://help.na.bambora.com/hc/en-us/articles/115015460087-TLS-Upgrade-TLS-1-2).
+
+

@@ -19,7 +19,7 @@ class Configuration {
      * 
      * @var string $_platform
      */
-	protected $_platform = 'www'; //default
+	protected $_platform = 'api'; //default
 
     /**
      * Configuration: Merchant ID

@@ -10,7 +10,8 @@ class Endpoints {
 	/**
 	 * Endpoints: Set BASE API Endpoint URL with inline {0} platform variable
 	 */
-	CONST BASE_URL = 'https://{0}.beanstream.com/api';
+	CONST BASE_URL_BAMBORANA = 'https://{0}.na.bambora.com';
+	CONST BASE_URL_BEANSTREAM = 'https://{0}.beanstream.com';  //keeping beanstream endpoint for backwards compatibility when $platform = 'www'
 
 	/**
 	 * Endpoint URL holders
@@ -65,25 +66,27 @@ class Endpoints {
      * @param string $version API Version
      */
 	function __construct($platform, $version) {
-		
+			
 		//assign endpoints
+		$baseUrl = ($platform == 'www' ? self::BASE_URL_BEANSTREAM . '/api' : self::BASE_URL_BAMBORANA);
+		
 		//payments
-		$this->basePaymentsURL = self::BASE_URL . '/{1}/payments';
+		$this->basePaymentsURL = $baseUrl . '/{1}/payments';
 		$this->preAuthCompletionsURL = $this->basePaymentsURL . '/{2}/completions';
 		$this->returnsURL = $this->basePaymentsURL . '/{2}/returns';
 		$this->unreferencedReturnsURL = $this->basePaymentsURL . '/0/returns';
 		$this->voidsURL = $this->basePaymentsURL . '/{2}/void';
 		$this->continuationsURL = $this->basePaymentsURL . '/{2}/continue';
-		$this->tokenizationURL = 'https://{0}.beanstream.com/scripts/tokenization/tokens';
-
+		$this->tokenizationURL = ($platform == 'www' ? self::BASE_URL_BEANSTREAM . '/scripts/tokenization/tokens' : $baseUrl . '/scripts/tokenization/tokens');
+		
 		//profiles
-		$this->baseProfilesURL = self::BASE_URL . '/{1}/profiles';
+		$this->baseProfilesURL = $baseUrl . '/{1}/profiles';
 		$this->profileURI = $this->baseProfilesURL . '/{2}';
 		$this->cardsURI = $this->profileURI . '/cards';
 		$this->cardURI = $this->cardsURI . '/{3}';
 
 		//reporting
-		$this->reportsURL = self::BASE_URL . '/{1}/reports';
+		$this->reportsURL = $baseUrl . '/{1}/reports';
 		$this->getPaymentURL = $this->basePaymentsURL . '/{2}';
 		
 		//assign incoming platform and version
@@ -91,6 +94,7 @@ class Endpoints {
 		$this->_version = $version;
 		
 	}
+
 
 	//methods to build out and return endpoints
 	//payments

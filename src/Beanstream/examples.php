@@ -1,4 +1,4 @@
-<?php
+<pre><?php
 //BEANSTREAM REST API SDK USAGE EXAMPLES	
 
 //get Beanstream Gateway
@@ -8,7 +8,7 @@ require_once 'Gateway.php';
 $merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
 $api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
-$platform = 'www'; //default
+$platform = 'api'; //default (or use 'tls12-api' for the TLS 1.2-Only endpoint)
 
 
 //generate a random order number, and set a default $amount (only used for example functions)
@@ -245,3 +245,4 @@ try {
      print_r($e);
      
 }
+?></pre>
