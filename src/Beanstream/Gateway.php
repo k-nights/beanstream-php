@@ -8,6 +8,7 @@ require_once 'communications/HttpConnector.php';
 require_once 'api/Payments.php';
 require_once 'api/Profiles.php';
 require_once 'api/Reporting.php';
+require_once 'api/BatchProcessing.php';
 
 
 /**
@@ -32,13 +33,15 @@ class Gateway {
 	 * 
 	 * Holds API objects with appropriate config
 	 * 
-	 * @var	\Beanstream\Payments	$_paymentsAPI
-	 * @var	\Beanstream\Profiles	$_profilesAPI
-	 * @var	\Beanstream\Reporting 	$_reportingAPI
+	 * @var	\Beanstream\Payments			$_paymentsAPI
+	 * @var	\Beanstream\Profiles			$_profilesAPI
+	 * @var	\Beanstream\Reporting 			$_reportingAPI
+	 * @var	\Beanstream\BatchProcessing 	$_batchProcessingAPI
 	 */
 	protected $_paymentsAPI; 
 	protected $_profilesAPI; 
 	protected $_reportingAPI; 
+	protected $_batchProcessingAPI; 
 
 
     /**
@@ -118,6 +121,24 @@ class Gateway {
 			$this->_reportingAPI = new Reporting($this->_config);
 		}
 		return $this->_reportingAPI;
+	}
+	
+	
+	/**
+	 * batchProcessing() function
+	 * 
+	 * Public facing function to return the configured BatchProcessing API
+	 * All comms with the BatchProcessing API will go through this function
+	 *
+	 * @return \Beanstream\BatchProcessing this gateway's batch processing api object
+	 */	
+	public function batchProcessing() {
+		//check to see if we already have it created 
+		if (is_null($this->_batchProcessingAPI)) {
+			//if we don't, create it
+			$this->_batchProcessingAPI = new BatchProcessing($this->_config);
+		}
+		return $this->_batchProcessingAPI;
 	}
 	
 }
