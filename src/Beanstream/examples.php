@@ -250,7 +250,7 @@ try {
 	//$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_cc);
 	
 	//upload an eft batch
-	$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_eft);
+	//$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_eft);
 	
 	//upload an ach batch
 	//$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_ach);
