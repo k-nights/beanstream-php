@@ -4,8 +4,8 @@
 require_once 'Gateway.php';
 
 //init api settings (beanstream dashboard > administration > account settings > order settings)
-$merchant_id = '300200672'; //INSERT MERCHANT ID (must be a 9 digit string)
-$api_key = 'beanstream'; //INSERT API ACCESS PASSCODE
+$merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
+$api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
 $platform = 'api'; //default
 
