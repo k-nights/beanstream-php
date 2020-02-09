@@ -1,24 +1,26 @@
 <pre><?php
 //BEANSTREAM REST API SDK USAGE EXAMPLES	
-
 //get Beanstream Gateway
 require_once 'Gateway.php';
 
 //init api settings (beanstream dashboard > administration > account settings > order settings)
-$merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
-$api_key = ''; //INSERT API ACCESS PASSCODE
+$merchant_id = '300200672'; //INSERT MERCHANT ID (must be a 9 digit string)
+$api_key = 'beanstream'; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
-$platform = 'api'; //default (or use 'tls12-api' for the TLS 1.2-Only endpoint)
+$platform = 'api'; //default
 
 
 //generate a random order number, and set a default $amount (only used for example functions)
-$order_number = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
+$order_number = bin2hex(substr(md5(mt_rand() . microtime()),0 ,22));
 $amount = 1.00;
 
+// enable error reporting for debugging purposes 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 //init new Beanstream Gateway object
 $beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
-
 
 
 //example array data for use in example functions
@@ -29,25 +31,25 @@ $payment_data = array(
         'amount' => $amount,
         'payment_method' => 'card',
         'card' => array(
-            'name' => 'Mr. Card Testerson',
+	        'name' => 'Mr. Sam Sitherson',
             'number' => '4030000010001234',
             'expiry_month' => '07',
             'expiry_year' => '22',
             'cvd' => '123'
         ),
 	    'billing' => array(
-	        'name' => 'Mr. John Doe',
-	        'email_address' => 'johndoe@email.com',
-	        'phone_number' => '1234567890',
-	        'address_line1' => 'Main St.',
-	        'city' => 'Anytown',
+	        'name' => 'Mr. Sam Sitherson',
+	        'email_address' => 'samsmitherson@email.com',
+	        'phone_number' => '1234567800',
+	        'address_line1' => 'Smithwerson St.',
+	        'city' => 'Smithers',
 	        'province' => 'BC',
 	        'postal_code' => 'V8J9I5',
 	        'country' => 'CA'
 		),
 	    'shipping' => array(
 	        'name' => 'Shipping Name',
-	        'email_address' => 'email@email.com',
+	        'email_address' => 'samsmitherson@email.com',
 	        'phone_number' => '1234567890',
 	        'address_line1' => '789-123 Shipping St.',
 	        'city' => 'Shippingsville',
@@ -138,18 +140,28 @@ $search_criteria = array(
          'value' => '1000000'
      )
 );
-	
+
 //example payment function test vars
 $transaction_id = ''; //enter a transaction id to use in below functions
 $complete = TRUE;
 
 
+//batch processing api example data
+$batch_example_data = array(
+	'process_date' => '20200212', //required, YYYYMMDD format, up to 30 days in the future
+	'process_now' => 0, //optional, only for cc data, does not affect EFT/ACH/SEPA/BACS/etc.. (note: processing hard cut-off time for EFT/ACH batches is 11AM PST/2PM EST)
+	'addendum'=>'test addendum' //optional, An addendum note, or data associated with the uploaded batch file. See your merchant-specific documentation for usage and specifications.
+);
+
+$batch_example_file_cc = realpath('./examplebatch_cc.csv'); //path to batch file (as .csv)
+$batch_example_file_eft = realpath('./examplebatch_eft.txt'); //path to batch file (as .txt)
+$batch_example_file_ach = realpath('./examplebatch_ach'); //path to batch file (with no extension)
 
 //REQUEST EXAMPLE FUNCTIONS BELOW
 //UNCOMMENT THE ONES YOU WOULD LIKE TO TEST 
 
 try {
-	
+
 	//**** PAYMENTS EXAMPLES
 	
 	//make a credit card payment
@@ -229,9 +241,28 @@ try {
 	//get a specific transaction
 	//$result = $beanstream->reporting()->getTransaction($transaction_id);
 
+
+
+
+	//**** BATCH PROCESSING EXAMPLES
+	
+	//upload a credit card batch
+	//$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_cc);
+	
+	//upload an eft batch
+	$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_eft);
+	
+	//upload an ach batch
+	//$result = $beanstream->batchProcessing()->uploadBatchFile($batch_example_data, $batch_example_file_ach);
+
+	
 	
 	//display result
 	is_null($result)?:print_r($result);
+
+
+
+
 
 
 } catch (\Beanstream\Exception $e) {

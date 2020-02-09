@@ -30,6 +30,7 @@ class Endpoints {
 	 * @var	string	$reportsURL
 	 * @var	string	$continuationsURL
 	 * @var	string	$tokenizationURL
+	 * @var	string	$batchProcessingURL
 	 */
 	protected $basePaymentsURL;
 	protected $getPaymentURL;
@@ -43,6 +44,7 @@ class Endpoints {
 	protected $reportsURL;
 	protected $continuationsURL;
 	protected $tokenizationURL;
+	protected $batchProcessingURL;
 
     /**
      * Endpoint: incoming API Platform
@@ -89,6 +91,9 @@ class Endpoints {
 		$this->reportsURL = $baseUrl . '/{1}/reports';
 		$this->getPaymentURL = $this->basePaymentsURL . '/{2}';
 		
+		//batch processing
+		$this->batchProcessingURL = $baseUrl . '/{1}/batchpayments';
+
 		//assign incoming platform and version
 		$this->_platform = $platform;
 		$this->_version = $version;
@@ -277,6 +282,17 @@ class Endpoints {
 	
 		//or use less-stringent str_replace instead of messageformat above
 		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $tid), $this->getPaymentURL);
+	}
+	
+	
+	/**
+	 * getBatchProcessingURL() function
+	 * 
+	 * @return string	Endpoint URL
+	 */	
+	public function getBatchProcessingURL() {
+		//parse url and replace variables via str_replace instead of messageformat
+		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->batchProcessingURL);
 	}
 	
 }
