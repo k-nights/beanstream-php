@@ -12,7 +12,7 @@ $platform = 'api'; //default (or use 'tls12-api' for the TLS 1.2-Only endpoint)
 
 
 //generate a random order number, and set a default $amount (only used for example functions)
-$order_number = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
+$order_number = bin2hex(random_bytes(22));
 $amount = 1.00;
 
 
@@ -153,8 +153,8 @@ try {
 	//**** PAYMENTS EXAMPLES
 	
 	//make a credit card payment
-	//$result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
-	//$transaction_id = $result['id'];
+	$result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
+	$transaction_id = $result['id'];
 	
 	//complete a PA
 	//$result = $beanstream->payments()->complete($transaction_id, $amount, $order_number);
