@@ -153,8 +153,8 @@ try {
 	//**** PAYMENTS EXAMPLES
 	
 	//make a credit card payment
-	$result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
-	$transaction_id = $result['id'];
+	//$result = $beanstream->payments()->makeCardPayment($return_data, $complete);
+	//$transaction_id = $result['id'];
 	
 	//complete a PA
 	//$result = $beanstream->payments()->complete($transaction_id, $amount, $order_number);
@@ -212,6 +212,9 @@ try {
 	//get all cards in profile
 	//$result = $beanstream->profiles()->getCards($profile_id);
 	
+	//get a card based on a profile cust code and card id
+	//$result = $beanstream->profiles()->getCard($profile_id, $card_id);
+
 	//update a specfic card in a profile
 	//$result = $beanstream->profiles()->updateCard($profile_id, $card_id, $card_data);
 	

@@ -40,6 +40,7 @@ class Endpoints {
 	protected $voidsURL;
 	protected $profileURI;
 	protected $cardsURI;
+	protected $cardURI;
 	protected $reportsURL;
 	protected $continuationsURL;
 	protected $tokenizationURL;
