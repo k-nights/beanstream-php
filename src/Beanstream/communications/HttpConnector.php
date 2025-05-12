@@ -116,7 +116,16 @@ class HttpConnector {
 		//check for return errors from the API
         $httpCode = curl_getinfo($req, CURLINFO_HTTP_CODE);
         if (isset($res['code']) && 1 < $res['code'] && !($httpCode >= 200 && $httpCode < 300)) {
-            throw new ApiException($res['message'], $res['code']);
+            $message = $res['message'];
+            if (!empty($res['details'])) {
+                $details = array();
+                //build out details from error response to return in API Exception message
+                foreach ($res['details'] as $detail) {
+                    $details[] = $detail['message'];
+                }
+                $message .= ' ('.implode('; ', $details).'.)';
+            }
+            throw new ApiException($message, $res['code']);
         }
         
         return $res;
