@@ -32,7 +32,7 @@ $payment_data = array(
             'name' => 'Mr. Card Testerson',
             'number' => '4030000010001234',
             'expiry_month' => '07',
-            'expiry_year' => '22',
+            'expiry_year' => '32',
             'cvd' => '123'
         ),
 	    'billing' => array(
@@ -82,7 +82,7 @@ $card_data = array(
         'name' => 'Test Testerson',
         'number' => '4030000010001234',
         'expiry_month' => '07',
-        'expiry_year' => '22',
+        'expiry_year' => '32',
         'cvd' => '123'
 		)
 	);
@@ -96,7 +96,7 @@ $return_data = array(
             'name' => 'Mr. Refund Testerson',
             'number' => '4030000010001234',
             'expiry_month' => '07',
-            'expiry_year' => '22',
+            'expiry_year' => '32',
             'cvd' => '123'
         )
 	);
@@ -112,7 +112,7 @@ $profile_payment_data = array(
 $legato_token_data = array(
         'number' => '4030000010001234',
         'expiry_month' => '07',
-        'expiry_year' => '22',
+        'expiry_year' => '32',
         'cvd' => '123'
     	);	
 
@@ -153,7 +153,7 @@ try {
 	//**** PAYMENTS EXAMPLES
 	
 	//make a credit card payment
-	//$result = $beanstream->payments()->makeCardPayment($return_data, $complete);
+	//$result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
 	//$transaction_id = $result['id'];
 	
 	//complete a PA
